@@ -1,0 +1,110 @@
+% ============================================================================
+% RELATÓRIO TÉCNICO - ALGORITMOS EVOLUTIVOS MULTIOBJETIVO
+% Análise Comparativa de NSGA-II e Random Search nos Problemas ZDT1 e ZDT3
+% ============================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% Pacotes essenciais
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{siunitx}
+
+% Configurações de página
+\geometry{
+    left=3cm,
+    right=2cm,
+    top=3cm,
+    bottom=2cm
+}
+
+% Configuração de cabeçalho e rodapé
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Algoritmos Evolutivos Multiobjetivo}
+\fancyhead[R]{NSGA-II vs Random Search}
+\fancyfoot[C]{\thepage}
+
+% Configuração de hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=blue,
+    pdftitle={Relatório MOEA - NSGA-II},
+    pdfauthor={Análise Experimental}
+}
+
+% Comandos personalizados
+\newcommand{\hlv}{\textit{Hypervolume}}
+\newcommand{\spac}{\textit{Spacing}}
+
+% ============================================================================
+% INÍCIO DO DOCUMENTO
+% ============================================================================
+
+\begin{document}
+
+% Página de título
+\input{sections/00_titlepage}
+
+% Resumo
+\input{sections/01_abstract}
+
+% Sumário
+\newpage
+\tableofcontents
+\newpage
+
+% Lista de figuras
+\listoffigures
+\newpage
+
+% Lista de tabelas
+\listoftables
+\newpage
+
+% ============================================================================
+% SEÇÕES PRINCIPAIS
+% ============================================================================
+
+\input{sections/02_introduction}
+\input{sections/03_methodology}
+\input{sections/04_experimental_setup}
+\input{sections/05_results}
+\input{sections/06_convergence_analysis}
+\input{sections/07_discussion}
+\input{sections/08_conclusion}
+
+% ============================================================================
+% REFERÊNCIAS
+% ============================================================================
+
+\newpage
+\input{sections/09_references}
+
+% ============================================================================
+% APÊNDICES
+% ============================================================================
+
+\newpage
+\appendix
+\input{sections/10_appendix}
+
+\end{document}

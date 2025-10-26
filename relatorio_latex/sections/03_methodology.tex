@@ -1,0 +1,153 @@
+% ============================================================================
+% METODOLOGIA
+% ============================================================================
+
+\section{Metodologia}
+
+\subsection{Algoritmos Implementados}
+
+\subsubsection{NSGA-II Padrão}
+
+A implementação segue rigorosamente a especificação de Deb et al. (2002), incorporando:
+
+\begin{itemize}
+    \item \textbf{Seleção por torneio binário}: Compara dois indivíduos aleatórios usando critérios de rank e \textit{crowding distance}
+    \item \textbf{Cruzamento BLX-$\alpha$ (\textit{Blend Crossover})}: Gera descendentes na região expandida entre os pais, com $\alpha = 0.5$
+    \item \textbf{Mutação adaptada ao tipo de variável}:
+    \begin{itemize}
+        \item ZDT1: Mutação por redefinição aleatória (\textit{random resetting}) para variáveis inteiras
+        \item ZDT3: Mutação uniforme para variáveis reais
+    \end{itemize}
+    \item \textbf{Probabilidades}: $P_c = 0.9$ (cruzamento), $P_m = 0.1$ (mutação)
+\end{itemize}
+
+O algoritmo opera em gerações, mantendo população de tamanho fixo através de:
+
+\begin{enumerate}
+    \item Geração de população filha via seleção, cruzamento e mutação
+    \item Combinação de populações parental e filha
+    \item Ordenação não-dominada da população combinada
+    \item Seleção dos melhores $N$ indivíduos baseada em rank e \textit{crowding distance}
+\end{enumerate}
+
+\subsubsection{NSGA-II com Normalização Fixa}
+
+Variante que utiliza limites fixos fornecidos pelo usuário para normalização de objetivos no cálculo da \textit{crowding distance}:
+
+\begin{itemize}
+    \item ZDT1: $f_1 \in [0.0, 1.0]$, $f_2 \in [0.0, 1.0]$
+    \item ZDT3: $f_1 \in [0.0, 1.0]$, $f_2 \in [-1.0, 1.0]$
+\end{itemize}
+
+Esta abordagem visa avaliar se conhecimento \textit{a priori} dos limites objetivos melhora o desempenho, particularmente em problemas onde a normalização dinâmica pode ser subótima.
+
+\subsubsection{NSGA-II sem \textit{Crowding Distance}}
+
+Versão modificada que:
+\begin{itemize}
+    \item Mantém ordenação não-dominada
+    \item Remove completamente o mecanismo de \textit{crowding distance}
+    \item Seleciona indivíduos do último front aceito aleatoriamente
+\end{itemize}
+
+Permite isolar e quantificar a contribuição específica da \textit{crowding distance} para diversidade e qualidade das soluções.
+
+\subsubsection{Random Search (Baseline)}
+
+Algoritmo de referência que:
+\begin{itemize}
+    \item Gera candidatos aleatórios uniformemente no espaço de busca
+    \item Mantém conjunto de soluções não-dominadas encontradas
+    \item Utiliza número equivalente de avaliações: $100 \times 250 = 25{,}000$
+\end{itemize}
+
+Estabelece baseline para avaliar benefício real da evolução versus amostragem aleatória.
+
+\subsection{Métricas de Performance}
+
+\subsubsection{Hypervolume (HV)}
+
+O \hlv{} mede o volume do espaço de objetivos dominado pela fronteira de Pareto aproximada, limitado por um ponto de referência:
+
+$$HV(A, r) = \text{volume}\left(\bigcup_{a \in A} [a_1, r_1] \times [a_2, r_2]\right)$$
+
+onde $A$ é o conjunto de soluções, $r$ o ponto de referência, e $a_i$ os valores objetivos.
+
+\textbf{Propriedades}:
+\begin{itemize}
+    \item Compliant com Pareto: melhora se e somente se aproximação melhora
+    \item Sensível a convergência e diversidade simultaneamente
+    \item Valores maiores indicam melhor performance
+\end{itemize}
+
+\textbf{Ponto de referência adotado}: $(1.2, 1.2)$ para ambos ZDT1 e ZDT3, garantindo que todas soluções do Pareto ótimo sejam dominadas pelo ponto.
+
+\subsubsection{Spacing (SP)}
+
+O \spac{} quantifica a uniformidade da distribuição de soluções na fronteira:
+
+$$SP = \sqrt{\frac{1}{|A|-1}\sum_{i=1}^{|A|} (d_i - \bar{d})^2}$$
+
+onde $d_i = \min_{j \neq i} \|a_i - a_j\|$ é a distância ao vizinho mais próximo e $\bar{d}$ a média das distâncias.
+
+\textbf{Propriedades}:
+\begin{itemize}
+    \item Valores menores indicam distribuição mais uniforme
+    \item Independente de convergência (avalia apenas distribuição)
+    \item Sensível a aglomerações e lacunas na fronteira
+\end{itemize}
+
+\subsection{Rastreamento de Convergência}
+
+Para análise dinâmica, implementou-se sistema de monitoramento que registra em \textbf{cada geração}:
+
+\begin{enumerate}
+    \item \textbf{Hypervolume}: Qualidade atual da aproximação
+    \item \textbf{Spacing}: Uniformidade da distribuição
+    \item \textbf{Tamanho do Pareto}: Número de soluções não-dominadas
+\end{enumerate}
+
+\textbf{Protocolo de coleta}:
+\begin{itemize}
+    \item 3 execuções independentes por configuração
+    \item Cálculo de média e desvio padrão para cada geração
+    \item Armazenamento em formato JSON estruturado
+    \item Total: $3 \times 250 = 750$ medições por métrica/algoritmo/problema
+\end{itemize}
+
+Este rastreamento permite:
+\begin{itemize}
+    \item Análise da velocidade de convergência
+    \item Identificação de estagnação ou instabilidade
+    \item Comparação de dinâmica entre variantes
+    \item Determinação de critérios de parada eficientes
+\end{itemize}
+
+\subsection{Análise Estatística}
+
+Para garantir significância estatística:
+
+\begin{itemize}
+    \item \textbf{10 execuções independentes} para resultados finais
+    \item \textbf{Sementes aleatórias distintas} para cada execução
+    \item Cálculo de \textbf{estatísticas descritivas}: mínimo, média, máximo, desvio padrão
+    \item Visualizações com \textbf{boxplots} para análise de dispersão
+    \item Intervalo de confiança implícito nas visualizações
+\end{itemize}
+
+\subsection{Visualizações Geradas}
+
+O estudo produziu conjunto abrangente de gráficos:
+
+\begin{enumerate}
+    \item \textbf{Fronteiras de Pareto}: Comparação visual das aproximações obtidas
+    \item \textbf{Evolução do Hypervolume}: Curvas de convergência com bandas de confiança
+    \item \textbf{Boxplots de Hypervolume}: Distribuição estatística dos valores finais
+    \item \textbf{Boxplots de Spacing}: Análise de uniformidade
+    \item \textbf{Comparação ZDT1 vs ZDT3}: Performance relativa entre problemas
+    \item \textbf{Evolução do Spacing}: Dinâmica de diversidade
+    \item \textbf{Tamanho do Pareto}: Evolução do número de soluções não-dominadas
+    \item \textbf{Métricas combinadas}: Painel com visão integrada
+\end{enumerate}
+
+Todos os gráficos foram gerados em formatos PNG (alta resolução, 300 DPI) e PDF (vetorial) para qualidade de publicação.

@@ -1,0 +1,169 @@
+% ============================================================================
+% CONFIGURAÇÃO EXPERIMENTAL
+% ============================================================================
+
+\section{Configuração Experimental}
+
+\subsection{Parâmetros dos Algoritmos}
+
+A Tabela~\ref{tab:parameters} sumariza os parâmetros utilizados em todos os experimentos.
+
+\begin{table}[H]
+\centering
+\caption{Parâmetros experimentais dos algoritmos evolutivos}
+\label{tab:parameters}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+\midrule
+Tamanho da população & $N$ & 100 \\
+Número de gerações & $G$ & 250 \\
+Número de variáveis & $n$ & 50 \\
+Probabilidade de cruzamento & $P_c$ & 0.9 \\
+Probabilidade de mutação & $P_m$ & 0.1 \\
+Parâmetro BLX-$\alpha$ & $\alpha$ & 0.5 \\
+Tamanho do torneio & $k$ & 2 \\
+\midrule
+Total de avaliações & $N \times G$ & 25{,}000 \\
+Execuções independentes & - & 10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Especificação dos Problemas}
+
+\subsubsection{ZDT1}
+
+\textbf{Formulação matemática}:
+\begin{align*}
+\text{Minimizar } & f_1(x) = x_1 \\
+                  & f_2(x) = g(x) \cdot h(f_1, g) \\
+\text{onde } & g(x) = 1 + \frac{9}{n-1}\sum_{i=2}^{n} x_i \\
+             & h(f_1, g) = 1 - \sqrt{\frac{f_1}{g}}
+\end{align*}
+
+\textbf{Características}:
+\begin{itemize}
+    \item Domínio: $x_i \in \{0, 1, 2, \ldots, 1000\}$ (variáveis inteiras)
+    \item Normalização interna: $x_i / 1000$ para $x_i \in [0, 1]$
+    \item Fronteira de Pareto: convexa, definida por $f_2 = 1 - \sqrt{f_1}$ com $f_1 \in [0, 1]$
+    \item Dificuldade: convergência relativamente fácil, distribuição uniforme natural
+\end{itemize}
+
+\subsubsection{ZDT3}
+
+\textbf{Formulação matemática}:
+\begin{align*}
+\text{Minimizar } & f_1(x) = x_1 \\
+                  & f_2(x) = g(x) \cdot h(f_1, g) \\
+\text{onde } & g(x) = 1 + \frac{9}{n-1}\sum_{i=2}^{n} x_i \\
+             & h(f_1, g) = 1 - \sqrt{\frac{f_1}{g}} - \frac{f_1}{g}\sin(10\pi f_1)
+\end{align*}
+
+\textbf{Características}:
+\begin{itemize}
+    \item Domínio: $x_i \in [0, 1]$ (variáveis reais)
+    \item Fronteira de Pareto: descontínua com 5 regiões separadas
+    \item Regiões aproximadas: $f_1 \in [0, 0.083] \cup [0.182, 0.258] \cup [0.409, 0.454] \cup [0.618, 0.653] \cup [0.823, 0.852]$
+    \item Dificuldade: manter diversidade em múltiplas regiões desconexas
+\end{itemize}
+
+\subsection{Configurações Avaliadas}
+
+O experimento comparou 8 configurações distintas:
+
+\begin{table}[H]
+\centering
+\caption{Matriz de configurações experimentais}
+\label{tab:configurations}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Algoritmo} & \textbf{ZDT1} & \textbf{ZDT3} \\
+\midrule
+NSGA-II padrão & \checkmark & \checkmark \\
+NSGA-II com \textit{fixed bounds} & \checkmark & \checkmark \\
+NSGA-II sem \textit{crowding distance} & \checkmark & \checkmark \\
+\textit{Random Search} & \checkmark & \checkmark \\
+\midrule
+\textbf{Total de combinações} & \multicolumn{2}{c}{8} \\
+\textbf{Execuções por combinação} & \multicolumn{2}{c}{10} \\
+\textbf{Total de execuções} & \multicolumn{2}{c}{80} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Infraestrutura Computacional}
+
+\textbf{Hardware}:
+\begin{itemize}
+    \item Processador: CPU x86\_64 (especificação variável)
+    \item Memória: Suficiente para manipulação de populações
+    \item Sistema operacional: Linux (Ubuntu/Debian)
+\end{itemize}
+
+\textbf{Software}:
+\begin{itemize}
+    \item Linguagem: Python 3.x
+    \item Bibliotecas: NumPy (computação numérica), Matplotlib (visualização)
+    \item Controle de versão: Git
+    \item Ambiente: VS Code com extensões Python
+\end{itemize}
+
+\subsection{Protocolo Experimental}
+
+\textbf{Fase 1 - Validação}:
+\begin{enumerate}
+    \item Implementação dos algoritmos
+    \item Testes unitários dos componentes principais
+    \item Verificação de conformidade com especificações
+    \item Execuções preliminares para ajuste de parâmetros
+\end{enumerate}
+
+\textbf{Fase 2 - Coleta de Dados}:
+\begin{enumerate}
+    \item Execução de 10 runs por configuração (resultados finais)
+    \item Execução de 3 runs com rastreamento de convergência
+    \item Registro de fronteiras de Pareto finais
+    \item Cálculo de métricas (HV e SP)
+    \item Armazenamento estruturado de resultados
+\end{enumerate}
+
+\textbf{Fase 3 - Análise}:
+\begin{enumerate}
+    \item Computação de estatísticas descritivas
+    \item Geração de visualizações
+    \item Análise de significância de diferenças
+    \item Identificação de padrões e tendências
+\end{enumerate}
+
+\subsection{Garantia de Qualidade}
+
+Medidas adotadas para assegurar confiabilidade:
+
+\begin{itemize}
+    \item \textbf{Reprodutibilidade}: Sementes aleatórias documentadas
+    \item \textbf{Validação cruzada}: Comparação com resultados da literatura
+    \item \textbf{Múltiplas execuções}: 10 runs independentes
+    \item \textbf{Versionamento}: Controle de versão de todo código
+    \item \textbf{Documentação}: Comentários e documentação inline
+    \item \textbf{Backup}: Preservação de implementações originais (.bak)
+\end{itemize}
+
+\subsection{Limitações Conhecidas}
+
+\textbf{Escopo}:
+\begin{itemize}
+    \item Análise restrita a 2 problemas da suíte ZDT
+    \item Problemas bi-objetivo apenas
+    \item Comparação limitada a variantes do NSGA-II
+    \item Ausência de testes estatísticos formais (e.g., Wilcoxon, Mann-Whitney)
+\end{itemize}
+
+\textbf{Computacional}:
+\begin{itemize}
+    \item Rastreamento de convergência reduzido para 3 runs (eficiência)
+    \item Métricas calculadas em Python (não otimizado)
+    \item Ausência de paralelização
+\end{itemize}
+
+Estas limitações são consideradas aceitáveis dado o escopo educacional e demonstrativo do estudo.

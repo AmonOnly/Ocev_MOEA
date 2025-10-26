@@ -1,0 +1,88 @@
+% ============================================================================
+% INTRODUÇÃO
+% ============================================================================
+
+\section{Introdução}
+
+\subsection{Contextualização}
+
+Problemas de otimização multiobjetivo (MOO - \textit{Multi-Objective Optimization}) são ubíquos em aplicações de engenharia, ciências e gestão, caracterizando-se pela necessidade de otimizar simultaneamente múltiplos objetivos conflitantes. Diferentemente da otimização mono-objetivo, onde existe uma única solução ótima, em MOO busca-se um conjunto de soluções de compromisso conhecidas como fronteira de Pareto.
+
+A natureza NP-difícil da maioria dos problemas MOO reais torna inviável a aplicação de métodos exatos, motivando o desenvolvimento de meta-heurísticas baseadas em população. Entre estas, os Algoritmos Evolutivos Multiobjetivo (MOEAs - \textit{Multi-Objective Evolutionary Algorithms}) destacam-se pela capacidade de aproximar a fronteira de Pareto completa em uma única execução.
+
+\subsection{O Algoritmo NSGA-II}
+
+O NSGA-II (\textit{Non-dominated Sorting Genetic Algorithm II}), proposto por Deb et al. (2002), representa um marco na área de otimização evolutiva multiobjetivo. O algoritmo introduziu três mecanismos fundamentais:
+
+\begin{enumerate}
+    \item \textbf{Ordenação não-dominada rápida (\textit{fast non-dominated sorting})}: Classifica a população em fronts de não-dominância com complexidade $O(MN^2)$, onde $M$ é o número de objetivos e $N$ o tamanho da população
+    
+    \item \textbf{Distância de aglomeração (\textit{crowding distance})}: Estima a densidade de soluções ao redor de cada indivíduo, preservando diversidade sem necessidade de parâmetros de nicho
+    
+    \item \textbf{Elitismo}: Combina população parental e filha, garantindo preservação das melhores soluções ao longo das gerações
+\end{enumerate}
+
+Estas inovações resultaram em desempenho superior aos algoritmos predecessores (MOGA, NPGA, NSGA), tornando o NSGA-II referência na literatura e aplicações práticas.
+
+\subsection{Problemas de Benchmark ZDT}
+
+A suíte ZDT (Zitzler, Deb \& Thiele, 2000) constitui um conjunto padronizado de problemas de teste para MOEAs, permitindo avaliação sistemática e comparação entre algoritmos. Este estudo foca em dois problemas representativos:
+
+\subsubsection{ZDT1 - Problema Contínuo}
+
+Caracteriza-se por:
+\begin{itemize}
+    \item Fronteira de Pareto convexa e contínua
+    \item 50 variáveis inteiras no intervalo $[0, 1000]$
+    \item Objetivos: minimizar $f_1(x)$ e $f_2(x)$
+    \item Topologia que favorece convergência uniforme
+\end{itemize}
+
+\subsubsection{ZDT3 - Problema Descontínuo}
+
+Distingue-se por:
+\begin{itemize}
+    \item Fronteira de Pareto descontínua com 5 regiões separadas
+    \item 50 variáveis reais no intervalo $[0, 1]$
+    \item Objetivos: minimizar $f_1(x)$ e $f_2(x)$
+    \item Desafio adicional de manter diversidade em múltiplas regiões
+\end{itemize}
+
+\subsection{Motivação do Estudo}
+
+Apesar da ampla adoção do NSGA-II, questões fundamentais sobre seus mecanismos permanecem relevantes:
+
+\begin{itemize}
+    \item Qual o impacto quantitativo do \textit{crowding distance} na qualidade e diversidade das soluções?
+    \item Como diferentes esquemas de normalização afetam o desempenho em problemas com características distintas?
+    \item Qual a dinâmica de convergência do algoritmo ao longo das gerações?
+    \item Quão superior é uma abordagem evolutiva comparada à busca aleatória?
+\end{itemize}
+
+Este estudo visa responder estas questões através de experimentação rigorosa e análise quantitativa.
+
+\subsection{Objetivos Específicos}
+
+\begin{enumerate}
+    \item Implementar e validar o NSGA-II conforme especificação original
+    \item Avaliar três variantes: padrão, com normalização fixa, e sem \textit{crowding distance}
+    \item Comparar com baseline de \textit{Random Search}
+    \item Aplicar nos problemas ZDT1 e ZDT3
+    \item Medir performance através de \hlv{} e \spac{}
+    \item Analisar convergência com rastreamento em tempo real (250 gerações)
+    \item Realizar análise estatística com 10 execuções independentes
+    \item Produzir visualizações abrangentes para interpretação dos resultados
+\end{enumerate}
+
+\subsection{Estrutura do Relatório}
+
+O restante deste documento está organizado como segue:
+
+\begin{itemize}
+    \item \textbf{Seção 2}: Descreve a metodologia experimental detalhada
+    \item \textbf{Seção 3}: Apresenta a configuração experimental e parâmetros
+    \item \textbf{Seção 4}: Reporta resultados quantitativos e qualitativos
+    \item \textbf{Seção 5}: Analisa a dinâmica de convergência
+    \item \textbf{Seção 6}: Discute implicações e limitações
+    \item \textbf{Seção 7}: Sintetiza conclusões e trabalhos futuros
+\end{itemize}

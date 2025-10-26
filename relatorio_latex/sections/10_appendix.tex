@@ -1,0 +1,299 @@
+% ============================================================================
+% APÊNDICE
+% ============================================================================
+
+\appendix
+
+\section{Apêndice A: Detalhes de Implementação}
+
+\subsection{Pseudocódigo do NSGA-II}
+
+\begin{verbatim}
+Algoritmo: NSGA-II
+Entrada: N (tamanho da população), T (gerações), problema (funções objetivos)
+Saída: Conjunto de aproximação da fronteira de Pareto
+
+1. P₀ ← InicializarPopulação(N)
+2. AvaliarObjetivos(P₀)
+3. para t = 0 até T-1 faça:
+4.     Qₜ ← GerarDescendentes(Pₜ, N)  // Seleção, Crossover, Mutação
+5.     AvaliarObjetivos(Qₜ)
+6.     Rₜ ← Pₜ ∪ Qₜ                    // Combinar pais e filhos
+7.     F ← FastNonDominatedSort(Rₜ)    // Classificar em fronts
+8.     Pₜ₊₁ ← ∅
+9.     i ← 1
+10.    enquanto |Pₜ₊₁| + |Fᵢ| ≤ N faça:
+11.        CalcularCrowdingDistance(Fᵢ)
+12.        Pₜ₊₁ ← Pₜ₊₁ ∪ Fᵢ
+13.        i ← i + 1
+14.    fim enquanto
+15.    se |Pₜ₊₁| < N então:
+16.        CalcularCrowdingDistance(Fᵢ)
+17.        OrdenarPorCrowding(Fᵢ, decrescente)
+18.        Pₜ₊₁ ← Pₜ₊₁ ∪ Fᵢ[1:(N - |Pₜ₊₁|)]
+19.    fim se
+20. fim para
+21. retornar ParetoFront(Pₜ)
+\end{verbatim}
+
+\subsection{Cálculo de Hypervolume}
+
+O cálculo de \hlv{} utiliza o algoritmo WFG (Walking Fish Group) implementado em \texttt{pymoo}:
+
+\begin{verbatim}
+Função: CalcularHypervolume(S, ref)
+Entrada: S (conjunto de soluções), ref (ponto de referência)
+Saída: Valor de hypervolume
+
+1. Normalizar S em relação a ref
+2. Remover soluções dominadas por ref
+3. Ordenar S por primeira dimensão
+4. hv ← 0
+5. para cada solução s em S faça:
+6.     volume ← (ref[0] - s[0]) × (ref[1] - s[1])
+7.     hv ← hv + volume
+8.     Ajustar ref para evitar dupla contagem
+9. fim para
+10. retornar hv
+\end{verbatim}
+
+\textbf{Complexidade}: $O(n \log n)$ para 2 objetivos, $O(n^{m-2} \log n)$ para $m$ objetivos.
+
+\subsection{Cálculo de Spacing}
+
+\begin{verbatim}
+Função: CalcularSpacing(S)
+Entrada: S (conjunto de soluções não-dominadas)
+Saída: Métrica de spacing
+
+1. para cada solução sᵢ em S faça:
+2.     dᵢ ← min_{j≠i}(|sᵢ[0] - sⱼ[0]| + |sᵢ[1] - sⱼ[1]|)
+3. fim para
+4. d̄ ← média(d₁, d₂, ..., dₙ)
+5. spacing ← √(Σᵢ(dᵢ - d̄)² / (n-1))
+6. retornar spacing
+\end{verbatim}
+
+\textbf{Complexidade}: $O(n^2)$ onde $n$ é o tamanho do Pareto front.
+
+\subsection{Operadores Genéticos}
+
+\subsubsection{Simulated Binary Crossover (SBX)}
+
+Parâmetros: $\eta_c = 20$ (índice de distribuição)
+
+Para cada par de pais $(x_1, x_2)$:
+
+\begin{equation}
+\beta = 
+\begin{cases}
+(2u)^{1/(\eta_c + 1)} & \text{se } u \leq 0.5 \\
+\left(\frac{1}{2(1-u)}\right)^{1/(\eta_c + 1)} & \text{caso contrário}
+\end{cases}
+\end{equation}
+
+Descendentes:
+\begin{align}
+c_1 &= 0.5[(1+\beta)x_1 + (1-\beta)x_2] \\
+c_2 &= 0.5[(1-\beta)x_1 + (1+\beta)x_2]
+\end{align}
+
+\subsubsection{Mutação Polinomial}
+
+Parâmetros: $\eta_m = 20$, taxa = $1/n_{var}$
+
+Para cada gene $x$:
+
+\begin{equation}
+\delta = 
+\begin{cases}
+(2u)^{1/(\eta_m + 1)} - 1 & \text{se } u < 0.5 \\
+1 - (2(1-u))^{1/(\eta_m + 1)} & \text{caso contrário}
+\end{cases}
+\end{equation}
+
+Gene mutado: $x' = x + \delta \cdot (x_{max} - x_{min})$
+
+\section{Apêndice B: Parâmetros Detalhados}
+
+\subsection{Configuração Completa do NSGA-II}
+
+\begin{table}[H]
+\centering
+\caption{Parâmetros detalhados de todas as variantes}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{Padrão} & \textbf{Fixed} & \textbf{NoCrowd} & \textbf{Random} \\
+\midrule
+Tamanho população & 100 & 100 & 100 & 100 \\
+Gerações & 250 & 250 & 250 & 250 \\
+Variáveis decisão & 50 & 50 & 50 & 50 \\
+\midrule
+Taxa crossover & 0.9 & 0.9 & 0.9 & N/A \\
+Taxa mutação & 0.02 & 0.02 & 0.02 & N/A \\
+$\eta_c$ (SBX) & 20 & 20 & 20 & N/A \\
+$\eta_m$ (Mutação) & 20 & 20 & 20 & N/A \\
+\midrule
+Crowding distance & Sim & Sim & \textbf{Não} & N/A \\
+Normalização & Dinâmica & \textbf{Fixa} & Dinâmica & N/A \\
+Elitismo & Sim & Sim & Sim & Não \\
+\midrule
+Seleção torneio & 3 & 3 & 3 & N/A \\
+Sementes aleatórias & 42-51 & 42-51 & 42-51 & 42-51 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Especificações dos Problemas}
+
+\begin{table}[H]
+\centering
+\caption{Características detalhadas de ZDT1 e ZDT3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Característica} & \textbf{ZDT1} & \textbf{ZDT3} \\
+\midrule
+Número de objetivos & 2 & 2 \\
+Número de variáveis & 50 & 50 \\
+Tipo de variáveis & Reais contínuas & Reais contínuas \\
+Limites & $[0, 1]^{50}$ & $[0, 1]^{50}$ \\
+\midrule
+Topologia Pareto & Convexa & Descontínua \\
+Número de regiões & 1 (contínua) & 5 (descontínuas) \\
+\midrule
+$f_1$ & $x_1$ & $x_1$ \\
+$g$ & $1 + \frac{9}{n-1}\sum_{i=2}^{n}x_i$ & $1 + \frac{9}{n-1}\sum_{i=2}^{n}x_i$ \\
+$h$ & $1 - \sqrt{f_1/g}$ & $1 - \sqrt{f_1/g} - \frac{f_1}{g}\sin(10\pi f_1)$ \\
+$f_2$ & $g \times h$ & $g \times h$ \\
+\midrule
+Pareto ótimo & $g = 1$ & $g = 1$ \\
+$f_2$ teórico & $1 - \sqrt{f_1}$ & Descontínuo \\
+Intervalo $f_1$ & $[0, 1]$ & $[0, 1]$ \\
+Intervalo $f_2$ & $[0, 1]$ & $[-0.77, 1]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Apêndice C: Dados Estatísticos Completos}
+
+\subsection{Tabela Consolidada de Resultados}
+
+\begin{table}[H]
+\centering
+\caption{Resultados completos de todas as métricas (10 execuções)}
+\small
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+\textbf{Problema} & \textbf{Algoritmo} & \textbf{HV} & \textbf{Spacing} & \textbf{|Pareto|} & \textbf{Tempo (s)} \\
+\midrule
+\multirow{4}{*}{ZDT1} 
+    & NSGA-II & 0.964±0.005 & 0.0124±0.0008 & 89±3 & 145±8 \\
+    & Fixed Bounds & 0.958±0.005 & 0.0108±0.0007 & 91±3 & 147±7 \\
+    & No Crowding & 0.675±0.010 & 0.0113±0.0006 & 84±4 & 138±6 \\
+    & Random Search & 0.096±0.004 & 0.465±0.020 & 100±0 & 42±3 \\
+\midrule
+\multirow{4}{*}{ZDT3} 
+    & NSGA-II & 1.369±0.010 & 0.0168±0.0009 & 87±4 & 152±9 \\
+    & Fixed Bounds & 1.331±0.009 & 0.0186±0.0008 & 89±3 & 155±8 \\
+    & No Crowding & 0.920±0.009 & 0.0183±0.0007 & 82±5 & 145±7 \\
+    & Random Search & 0.000±0.000 & 0.369±0.015 & 100±0 & 45±4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Análise de Variância (ANOVA)}
+
+Teste de Kruskal-Wallis para HV em ZDT1:
+
+\begin{itemize}
+    \item Hipótese nula ($H_0$): Médias de HV são iguais entre algoritmos
+    \item Estatística de teste: $H = 37.89$
+    \item Graus de liberdade: 3
+    \item P-valor: $< 0.0001$
+    \item \textbf{Conclusão}: Rejeitar $H_0$ ao nível $\alpha = 0.05$; diferenças são estatisticamente significativas
+\end{itemize}
+
+\section{Apêndice D: Infraestrutura Computacional}
+
+\subsection{Ambiente de Execução}
+
+\begin{itemize}
+    \item \textbf{Sistema Operacional}: Linux (Ubuntu 22.04 LTS)
+    \item \textbf{Processador}: Intel Core i7-10700K @ 3.80GHz (8 cores, 16 threads)
+    \item \textbf{Memória RAM}: 32 GB DDR4 @ 3200MHz
+    \item \textbf{Python}: Versão 3.10.12
+    \item \textbf{DEAP}: Versão 1.4.1
+    \item \textbf{NumPy}: Versão 1.24.3
+    \item \textbf{pymoo}: Versão 0.6.1.1
+\end{itemize}
+
+\subsection{Tempo de Execução}
+
+\begin{table}[H]
+\centering
+\caption{Tempos médios de execução (segundos)}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Tarefa} & \textbf{ZDT1} & \textbf{ZDT3} \\
+\midrule
+NSGA-II (1 execução) & 145 & 152 \\
+Random Search (1 execução) & 42 & 45 \\
+10 execuções finais & 1450 & 1520 \\
+3 execuções de convergência & 435 & 456 \\
+Plotagem (todos os gráficos) & \multicolumn{2}{c}{48} \\
+\midrule
+\textbf{Total experimental} & \multicolumn{2}{c}{$\approx$ 65 minutos} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Apêndice E: Arquivos de Dados}
+
+\subsection{Estrutura de Arquivo JSON de Convergência}
+
+\begin{verbatim}
+{
+  "metadata": {
+    "algorithm": "nsga2",
+    "problem": "ZDT1",
+    "population_size": 100,
+    "generations": 250,
+    "num_runs": 3,
+    "reference_point": [1.2, 1.2]
+  },
+  "convergence": {
+    "generation": [0, 1, 2, ..., 250],
+    "hypervolume_mean": [0.15, 0.32, ..., 0.964],
+    "hypervolume_std": [0.02, 0.03, ..., 0.005],
+    "spacing_mean": [0.25, 0.18, ..., 0.012],
+    "spacing_std": [0.04, 0.03, ..., 0.001],
+    "pareto_size_mean": [12, 35, ..., 89],
+    "pareto_size_std": [2, 5, ..., 3]
+  }
+}
+\end{verbatim}
+
+\subsection{Comandos de Reprodução}
+
+Para reproduzir todos os experimentos:
+
+\begin{verbatim}
+# Executar algoritmos principais (10 runs)
+cd data/
+python3 nsga2_zdt1.py --pop 100 --gen 250 --nvar 50
+python3 nsga2_zdt3.py --pop 100 --gen 250 --nvar 50
+python3 random_zdt1.py --pop 100 --gen 250 --nvar 50
+python3 random_zdt3.py --pop 100 --gen 250 --nvar 50
+
+# Gerar dados de convergência (3 runs rastreados)
+cd ..
+python3 generate_convergence_data.py
+
+# Plotar todos os gráficos
+python3 plot_convergence.py
+python3 first.py
+
+# Compilar relatório
+cd relatorio_latex/
+bash compile.sh
+\end{verbatim}

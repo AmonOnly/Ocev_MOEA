@@ -1,0 +1,48 @@
+% ============================================================================
+% RESUMO
+% ============================================================================
+
+\section*{Resumo}
+\addcontentsline{toc}{section}{Resumo}
+
+Este relatório apresenta uma análise experimental detalhada do algoritmo NSGA-II (\textit{Non-dominated Sorting Genetic Algorithm II}) aplicado aos problemas de benchmark ZDT1 e ZDT3. O estudo compara três variantes do NSGA-II com o algoritmo \textit{Random Search}, utilizando métricas quantitativas de performance (\textit{Hypervolume} e \textit{Spacing}) e análise de convergência ao longo de 250 gerações.
+
+\subsection*{Objetivos}
+
+\begin{itemize}
+    \item Avaliar a eficácia do NSGA-II em problemas multiobjetivo com diferentes características topológicas (ZDT1 contínuo vs. ZDT3 descontínuo)
+    \item Analisar o impacto do mecanismo de \textit{crowding distance} na diversidade das soluções
+    \item Investigar o efeito da normalização fixa de limites (\textit{fixed bounds}) no desempenho do algoritmo
+    \item Comparar quantitativamente algoritmos evolutivos com busca aleatória
+    \item Estudar a dinâmica de convergência através de rastreamento em tempo real
+\end{itemize}
+
+\subsection*{Principais Resultados}
+
+Os experimentos revelaram que:
+
+\begin{itemize}
+    \item \textbf{Superioridade do NSGA-II}: O algoritmo atingiu valores de \hlv{} aproximadamente 100 vezes superiores ao \textit{Random Search}, com $HV_{ZDT1} = 0.964$ e $HV_{ZDT3} = 1.369$
+    
+    \item \textbf{Convergência rápida}: O NSGA-II alcançou 90\% do \hlv{} final em apenas 45 gerações (18\% do total), demonstrando eficiência computacional
+    
+    \item \textbf{Importância do \textit{crowding distance}}: A remoção deste mecanismo resultou em queda de 30\% no \hlv{} e aumento de 87.5\% no \spac{}, evidenciando perda significativa de diversidade
+    
+    \item \textbf{Impacto mínimo da normalização fixa}: A diferença de performance entre NSGA-II padrão e com \textit{fixed bounds} foi inferior a 1\%, indicando robustez do algoritmo
+    
+    \item \textbf{Adaptabilidade a diferentes topologias}: O NSGA-II demonstrou desempenho consistente tanto no problema contínuo (ZDT1) quanto no descontínuo (ZDT3)
+\end{itemize}
+
+\subsection*{Contribuições}
+
+Este estudo contribui com:
+
+\begin{enumerate}
+    \item Análise quantitativa detalhada com 10 execuções independentes por configuração
+    \item Sistema de rastreamento de convergência em tempo real, coletando métricas em todas as 250 gerações
+    \item Visualizações abrangentes incluindo fronteiras de Pareto, análises estatísticas e curvas de convergência
+    \item Estudo comparativo sistemático de variantes do NSGA-II
+    \item Validação experimental dos mecanismos fundamentais do NSGA-II
+\end{enumerate}
+
+\textbf{Palavras-chave}: Otimização multiobjetivo, NSGA-II, ZDT benchmark, \textit{Hypervolume}, \textit{Spacing}, \textit{crowding distance}, análise de convergência.
