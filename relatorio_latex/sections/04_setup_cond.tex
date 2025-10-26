@@ -1,0 +1,51 @@
+\section{Configuração Experimental}
+
+\subsection{Parâmetros do NSGA-II}
+A Tabela \ref{tab:params} resume os parâmetros utilizados consistentemente em todos os experimentos:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Parâmetro} & \textbf{Valor} \\
+\midrule
+População & 100 indivíduos \\
+Gerações & 250 \\
+Probabilidade de crossover & 0.9 \\
+Probabilidade de mutação & $1/N$ (adaptativa) \\
+Operador de crossover & SBX ($\eta_c = 15$) \\
+Operador de mutação & Polynomial ($\eta_m = 20$) \\
+Seleção & Torneio binário \\
+\bottomrule
+\end{tabular}
+\caption{Parâmetros do NSGA-II utilizados nos experimentos.}
+\label{tab:params}
+\end{table}
+
+\subsection{Configurações de Dimensionalidade}
+Testamos três níveis de dimensionalidade:
+\begin{itemize}
+  \item \textbf{N = 50}: Baseline (configuração padrão da literatura para ZDT).
+  \item \textbf{N = 100}: Dimensionalidade intermediária (2× baseline).
+  \item \textbf{N = 200}: Alta dimensionalidade (4× baseline).
+\end{itemize}
+
+\textbf{Nota sobre escalabilidade de parâmetros}: Mantivemos população e gerações fixas intencionalmente para isolar o efeito puro do aumento de N. A literatura sugere escalar população como Pop $\propto \sqrt{N}$ para compensar a maldição da dimensionalidade, o que será discutido nas recomendações (Seção 5).
+
+\subsection{Infraestrutura Computacional}
+\begin{itemize}
+  \item \textbf{Linguagem}: Python 3.10+
+  \item \textbf{Bibliotecas}: DEAP 1.4.1 (implementação do NSGA-II), NumPy 1.24+, Matplotlib 3.7+
+  \item \textbf{Hardware}: CPU Intel Core i7, 16GB RAM
+  \item \textbf{Tempo de execução}: ~30-40 minutos para completar os 60 experimentos (2 problemas × 3 valores de N × 10 runs)
+\end{itemize}
+
+\subsection{Organização dos Dados}
+Os resultados são armazenados em \texttt{results\_nvar\_comparison/}:
+\begin{itemize}
+  \item 6 arquivos de resultados (ZDT1/ZDT3 × N50/N100/N200)
+  \item Cada arquivo contém: HV médio, desvio-padrão, Spacing médio, desvio-padrão
+  \item Relatório consolidado (\texttt{COMPARISON\_REPORT.txt}) com análise estatística
+\end{itemize}
+
+As visualizações são geradas em \texttt{plots/} no formato PDF (vetorial) para inclusão no relatório.

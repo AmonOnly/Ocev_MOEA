@@ -4,13 +4,13 @@ import math
 def initial_pop(dimension,pop_size):
     population = []
     for _ in range(pop_size):
-        individual = [random.randint(0,1000) for _ in range(dimension)]
+        individual = [random.uniform(0, 1) for _ in range(dimension)]
         population.append(individual)
     return population
 
 def fitness(individual):
-    f1 = individual[0]/1000
-    g = 1 + 9*(sum(individual[1:])/len(individual[1:]))
+    f1 = individual[0]
+    g = 1 + (9/len(individual)-1)*(sum(individual[1:])/len(individual[1:]))
     f2 = g*(1- math.sqrt(f1/g))
     return f1, f2
 

@@ -1,0 +1,19 @@
+\section{Introdução}
+
+\subsection{Contexto e Motivação}
+A otimização multiobjetivo (MOO) é fundamental em problemas de engenharia, ciência de dados e tomada de decisão onde múltiplos critérios conflitantes devem ser simultaneamente otimizados. Algoritmos evolutivos multiobjetivo (MOEAs) como o NSGA-II têm demonstrado eficácia em encontrar conjuntos de soluções não-dominadas (Pareto-ótimas), oferecendo ao tomador de decisão um leque de alternativas para análise de trade-offs.
+
+\subsection{Problema de Pesquisa}
+Um desafio crítico em MOEAs é a escalabilidade com o aumento do número de variáveis de decisão. A literatura reporta que a qualidade das soluções tende a degradar à medida que a dimensionalidade cresce — fenômeno conhecido como "maldição da dimensionalidade". Este estudo investiga empiricamente este comportamento no NSGA-II.
+
+\subsection{Objetivos}
+Este trabalho tem como objetivos principais:
+\begin{itemize}
+  \item Avaliar a performance do NSGA-II em dois problemas benchmark clássicos: ZDT1 (frente de Pareto contínua) e ZDT3 (frente descontínua com 5 regiões).
+  \item Analisar sistematicamente como a qualidade da solução se altera com o aumento do número de variáveis (N = 50, 100, 200).
+  \item Quantificar a degradação de métricas-chave: Hypervolume (qualidade/convergência) e Spacing (uniformidade da distribuição).
+  \item Fornecer recomendações práticas baseadas em evidências para aplicações em alta dimensionalidade.
+\end{itemize}
+
+\subsection{Estrutura do Relatório}
+O restante deste documento está organizado da seguinte forma: a Seção 2 descreve brevemente a metodologia experimental; a Seção 3 detalha a configuração dos experimentos; a Seção 4 apresenta os resultados quantitativos e análises visuais; e a Seção 5 conclui com recomendações práticas e limitações do estudo.

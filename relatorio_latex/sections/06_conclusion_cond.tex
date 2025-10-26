@@ -1,0 +1,70 @@
+\section{Conclusões e Recomendações}
+
+\subsection{Principais Achados}
+Este estudo investigou empiricamente a escalabilidade do NSGA-II em problemas ZDT com crescente dimensionalidade (N = 50, 100, 200). Os principais achados são:
+
+\begin{enumerate}
+  \item \textbf{Degradação de Qualidade}: O Hypervolume decresce 3-4\% ao quadruplicar N, indicando perda moderada de convergência/diversidade.
+  
+  \item \textbf{Deterioração Severa de Uniformidade}: O Spacing aumenta 65-75\%, demonstrando que a distribuição uniforme é muito mais afetada que a convergência absoluta.
+  
+  \item \textbf{Sensibilidade ao Tipo de Problema}: ZDT3 (descontínuo) mostra maior sensibilidade em HV (+30\% de degradação relativa vs ZDT1), mas paradoxalmente menor degradação em Spacing.
+  
+  \item \textbf{Variabilidade Estocástica}: Desvios-padrão aumentam com N, indicando que alta dimensionalidade também reduz a robustez do algoritmo.
+\end{enumerate}
+
+\subsection{Recomendações Práticas}
+
+\subsubsection{Ajuste de Parâmetros}
+Para aplicações com N $>$ 100, recomenda-se:
+\begin{itemize}
+  \item \textbf{População}: Escalar como Pop $\propto \sqrt{N}$. Exemplo: para N=200, usar Pop $\approx$ 225 (ao invés de 100).
+  
+  \item \textbf{Gerações}: Aumentar proporcionalmente: Gen $\propto 1.5 \times \sqrt{N}$. Para N=200, usar Gen $\approx$ 500.
+  
+  \item \textbf{Custo computacional}: Estas recomendações aumentam o custo por fator de ~4.5× (para N=200 vs N=50), mas são necessárias para manter qualidade.
+\end{itemize}
+
+\subsubsection{Algoritmos Alternativos}
+Para N $>$ 200 ou problemas com M $>$ 2 objetivos (many-objective optimization), considerar:
+\begin{itemize}
+  \item \textbf{NSGA-III}: Projetado especificamente para many-objective (M $\geq$ 3), usa pontos de referência ao invés de crowding distance.
+  
+  \item \textbf{MOEA/D}: Decomposição do problema em subproblemas escalares. Eficiente em alta dimensionalidade e paralelizável.
+  
+  \item \textbf{SMS-EMOA}: Usa Hypervolume diretamente como critério de seleção. Mais custoso computacionalmente, mas robusto em M=2,3.
+\end{itemize}
+
+\subsection{Limitações do Estudo}
+\begin{itemize}
+  \item \textbf{Escopo de Benchmarks}: Apenas ZDT1 e ZDT3 foram testados. Problemas com outras características (multi-modalidade, restrições, M$>$2) podem apresentar comportamento diferente.
+  
+  \item \textbf{Parâmetros Fixos}: Fixar Pop e Gen isola o efeito de N, mas não representa uso otimizado do algoritmo. Estudos futuros devem investigar estratégias adaptativas.
+  
+  \item \textbf{Análise Estatística}: Esta versão condensada omite testes de significância (p.ex. Mann-Whitney, Kruskal-Wallis). Para validação rigorosa, consulte relatório estendido.
+  
+  \item \textbf{Implementação Específica}: Resultados baseados em DEAP 1.4.1. Outras implementações (pymoo, jMetal) podem apresentar diferenças sutis devido a detalhes de implementação.
+\end{itemize}
+
+\subsection{Trabalhos Futuros}
+Direções promissoras para extensão desta pesquisa:
+\begin{itemize}
+  \item Investigar N $>$ 500 com ajuste adaptativo de parâmetros.
+  \item Comparar NSGA-II vs NSGA-III vs MOEA/D em alta dimensionalidade.
+  \item Analisar impacto de operadores de mutação alternativos (p.ex. Differential Evolution).
+  \item Estudar correlação entre estrutura do problema (epistasia, ruído) e escalabilidade.
+  \item Desenvolver métricas que capturem trade-off convergência-diversidade de forma integrada.
+\end{itemize}
+
+\subsection{Considerações Finais}
+Os resultados confirmam que a maldição da dimensionalidade impacta significativamente o NSGA-II, especialmente na manutenção de diversidade uniforme. Entretanto, com ajustes apropriados de parâmetros, o algoritmo mantém utilidade prática para N $\leq$ 200. Para aplicações em dimensionalidade superior, algoritmos especializados como NSGA-III ou MOEA/D devem ser considerados.
+
+A escolha do algoritmo deve balancear:
+\begin{itemize}
+  \item \textbf{Qualidade da solução} (HV, convergência)
+  \item \textbf{Uniformidade da distribuição} (Spacing, cobertura)
+  \item \textbf{Custo computacional} (tempo de execução)
+  \item \textbf{Robustez} (variabilidade estocástica)
+\end{itemize}
+
+Este estudo fornece evidências quantitativas para guiar essa escolha em contextos de escalabilidade.

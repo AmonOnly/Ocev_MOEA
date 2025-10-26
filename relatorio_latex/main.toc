@@ -1,0 +1,147 @@
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{Resumo}{1}{Doc-Start}%
+\contentsline {section}{\numberline {1}Introdução}{6}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Contextualização}{6}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}O Algoritmo NSGA-II}{6}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Problemas de Benchmark ZDT}{6}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}ZDT1 - Problema Contínuo}{6}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}ZDT3 - Problema Descontínuo}{7}{subsubsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.4}Motivação do Estudo}{7}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Objetivos Específicos}{7}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Estrutura do Relatório}{8}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Metodologia}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Algoritmos Implementados}{8}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}NSGA-II Padrão}{8}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}NSGA-II com Normalização Fixa}{9}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}NSGA-II sem \textit {Crowding Distance}}{9}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Random Search (Baseline)}{9}{subsubsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.2}Métricas de Performance}{9}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Hypervolume (HV)}{9}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Spacing (SP)}{10}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Rastreamento de Convergência}{10}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Análise Estatística}{11}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Visualizações Geradas}{11}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Configuração Experimental}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Parâmetros dos Algoritmos}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Especificação dos Problemas}{12}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}ZDT1}{12}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}ZDT3}{12}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Configurações Avaliadas}{13}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Infraestrutura Computacional}{13}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Protocolo Experimental}{13}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Garantia de Qualidade}{14}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Limitações Conhecidas}{14}{subsection.3.7}%
+\contentsline {section}{\numberline {4}Resultados}{15}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Análise Qualitativa: Fronteiras de Pareto}{15}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Observações - ZDT1}{15}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Observações - ZDT3}{16}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Análise Quantitativa: Hypervolume}{16}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Resultados Agregados}{16}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Distribuição Estatística}{16}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}Análise Quantitativa: Spacing}{17}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Resultados Agregados}{17}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Distribuição Estatística}{18}{subsubsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.4}Comparação entre Problemas}{18}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Análise de Convergência}{20}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Evolução do Hypervolume}{20}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Dinâmica Temporal - ZDT1}{20}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Análise Comparativa}{21}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Evolução do Spacing}{21}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Evolução do Tamanho do Pareto}{22}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Visão Integrada: Métricas Combinadas}{23}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Análise de Variabilidade Estocástica}{23}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Desvio Padrão Temporal}{23}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}Coeficiente de Variação}{24}{subsubsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.6}Síntese da Análise de Convergência}{24}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Principais Descobertas}{24}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Implicações Práticas}{25}{subsubsection.5.6.2}%
+\contentsline {section}{\numberline {6}Análise de Escalabilidade}{25}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Motivação}{25}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Configuração Experimental}{26}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Parâmetros}{26}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Hipóteses}{26}{subsubsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.3}Resultados}{26}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Impacto no Hypervolume}{26}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}Impacto no Spacing}{28}{subsubsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.3}Comparação Consolidada}{29}{subsubsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.4}Análise Estatística}{29}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}Tabela de Resultados Consolidados}{29}{subsubsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.2}Taxas de Degradação}{30}{subsubsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.5}Interpretação}{30}{subsection.6.5}%
+\contentsline {subsubsection}{\numberline {6.5.1}Validação de Hipóteses}{30}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.2}Maldição da Dimensionalidade}{30}{subsubsection.6.5.2}%
+\contentsline {subsubsection}{\numberline {6.5.3}Desafio de Diversidade}{30}{subsubsection.6.5.3}%
+\contentsline {subsubsection}{\numberline {6.5.4}Impacto da Descontinuidade}{31}{subsubsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.6}Comparação com Literatura}{31}{subsection.6.6}%
+\contentsline {subsubsection}{\numberline {6.6.1}Estudos Anteriores}{31}{subsubsection.6.6.1}%
+\contentsline {subsubsection}{\numberline {6.6.2}Posicionamento dos Resultados}{31}{subsubsection.6.6.2}%
+\contentsline {subsection}{\numberline {6.7}Recomendações Práticas}{31}{subsection.6.7}%
+\contentsline {subsubsection}{\numberline {6.7.1}Ajuste de Parâmetros}{31}{subsubsection.6.7.1}%
+\contentsline {subsubsection}{\numberline {6.7.2}Alternativas Algorítmicas}{32}{subsubsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.8}Limitações e Trabalhos Futuros}{32}{subsection.6.8}%
+\contentsline {subsubsection}{\numberline {6.8.1}Limitações do Estudo}{32}{subsubsection.6.8.1}%
+\contentsline {subsubsection}{\numberline {6.8.2}Extensões Futuras}{32}{subsubsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.9}Conclusão da Análise de Escalabilidade}{32}{subsection.6.9}%
+\contentsline {section}{\numberline {7}Discussão}{33}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Interpretação dos Resultados}{33}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Superioridade do NSGA-II}{33}{subsubsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.2}Papel da Crowding Distance}{33}{subsubsection.7.1.2}%
+\contentsline {subsubsection}{\numberline {7.1.3}Normalização de Objetivos}{33}{subsubsection.7.1.3}%
+\contentsline {subsubsection}{\numberline {7.1.4}Ineficácia do Random Search}{34}{subsubsection.7.1.4}%
+\contentsline {subsection}{\numberline {7.2}Comparação com Literatura}{34}{subsection.7.2}%
+\contentsline {subsubsection}{\numberline {7.2.1}Benchmark ZDT}{34}{subsubsection.7.2.1}%
+\contentsline {subsubsection}{\numberline {7.2.2}Análise de Convergência}{34}{subsubsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.3}Limitações do Estudo}{35}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Escopo de Problemas}{35}{subsubsection.7.3.1}%
+\contentsline {subsubsection}{\numberline {7.3.2}Espaço de Configuração}{35}{subsubsection.7.3.2}%
+\contentsline {subsubsection}{\numberline {7.3.3}Métricas de Qualidade}{35}{subsubsection.7.3.3}%
+\contentsline {subsubsection}{\numberline {7.3.4}Análise Estatística}{35}{subsubsection.7.3.4}%
+\contentsline {subsection}{\numberline {7.4}Ameaças à Validade}{35}{subsection.7.4}%
+\contentsline {subsubsection}{\numberline {7.4.1}Validade Interna}{35}{subsubsection.7.4.1}%
+\contentsline {subsubsection}{\numberline {7.4.2}Validade Externa}{36}{subsubsection.7.4.2}%
+\contentsline {subsubsection}{\numberline {7.4.3}Validade de Construto}{36}{subsubsection.7.4.3}%
+\contentsline {subsection}{\numberline {7.5}Trabalhos Futuros}{36}{subsection.7.5}%
+\contentsline {subsubsection}{\numberline {7.5.1}Extensões Imediatas}{36}{subsubsection.7.5.1}%
+\contentsline {subsubsection}{\numberline {7.5.2}Investigações Aprofundadas}{36}{subsubsection.7.5.2}%
+\contentsline {subsubsection}{\numberline {7.5.3}Many-Objective Optimization}{37}{subsubsection.7.5.3}%
+\contentsline {subsubsection}{\numberline {7.5.4}Aplicações Reais}{37}{subsubsection.7.5.4}%
+\contentsline {subsubsection}{\numberline {7.5.5}Aspectos Teóricos}{37}{subsubsection.7.5.5}%
+\contentsline {subsection}{\numberline {7.6}Síntese da Discussão}{37}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Conclusão}{38}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Síntese dos Resultados}{38}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Performance Algorítmica}{38}{subsubsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.2}Dinâmica de Convergência}{38}{subsubsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.3}Componentes Algorítmicos}{38}{subsubsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.2}Contribuições do Estudo}{38}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Contribuições Metodológicas}{38}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.2}Contribuições Empíricas}{39}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.3}Contribuições Práticas}{39}{subsubsection.8.2.3}%
+\contentsline {subsection}{\numberline {8.3}Implicações}{39}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Para Pesquisadores}{39}{subsubsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.2}Para Praticantes}{39}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}Para Desenvolvimento de Software}{40}{subsubsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.4}Limitações e Trabalhos Futuros}{40}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Considerações Finais}{40}{subsection.8.5}%
+\contentsline {section}{\numberline {9}Referências}{42}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Recursos Online}{43}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Ferramentas e Bibliotecas Utilizadas}{44}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Repositório de Código}{44}{subsection.9.3}%
+\contentsline {section}{\numberline {A}Apêndice A: Detalhes de Implementação}{45}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Pseudocódigo do NSGA-II}{45}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Cálculo de Hypervolume}{45}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}Cálculo de Spacing}{46}{subsection.A.3}%
+\contentsline {subsection}{\numberline {A.4}Operadores Genéticos}{46}{subsection.A.4}%
+\contentsline {subsubsection}{\numberline {A.4.1}Simulated Binary Crossover (SBX)}{46}{subsubsection.A.4.1}%
+\contentsline {subsubsection}{\numberline {A.4.2}Mutação Polinomial}{46}{subsubsection.A.4.2}%
+\contentsline {section}{\numberline {B}Apêndice B: Parâmetros Detalhados}{47}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Configuração Completa do NSGA-II}{47}{subsection.B.1}%
+\contentsline {subsection}{\numberline {B.2}Especificações dos Problemas}{47}{subsection.B.2}%
+\contentsline {section}{\numberline {C}Apêndice C: Dados Estatísticos Completos}{48}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Tabela Consolidada de Resultados}{48}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}Análise de Variância (ANOVA)}{48}{subsection.C.2}%
+\contentsline {section}{\numberline {D}Apêndice D: Infraestrutura Computacional}{48}{appendix.D}%
+\contentsline {subsection}{\numberline {D.1}Ambiente de Execução}{48}{subsection.D.1}%
+\contentsline {subsection}{\numberline {D.2}Tempo de Execução}{49}{subsection.D.2}%
+\contentsline {section}{\numberline {E}Apêndice E: Arquivos de Dados}{49}{appendix.E}%
+\contentsline {subsection}{\numberline {E.1}Estrutura de Arquivo JSON de Convergência}{49}{subsection.E.1}%
+\contentsline {subsection}{\numberline {E.2}Comandos de Reprodução}{49}{subsection.E.2}%

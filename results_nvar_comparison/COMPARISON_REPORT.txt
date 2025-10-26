@@ -1,0 +1,88 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║        RELATÓRIO DE COMPARAÇÃO: ESCALABILIDADE EM N VARIÁVEIS         ║
+║                    NSGA-II em ZDT1 e ZDT3                              ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+Data: dom 26 out 2025 13:33:44 -03
+Tempo de execução: 3m 28s
+
+═══════════════════════════════════════════════════════════════════════
+CONFIGURAÇÃO EXPERIMENTAL
+═══════════════════════════════════════════════════════════════════════
+
+Problemas testados:     ZDT1 (contínuo), ZDT3 (descontínuo)
+Valores de N:           50, 100, 200
+Tamanho da população:   100
+Número de gerações:     250
+Execuções por config:   10
+Total de experimentos:  60
+
+═══════════════════════════════════════════════════════════════════════
+RESULTADOS CONSOLIDADOS
+═══════════════════════════════════════════════════════════════════════
+
+
+───────────────────────────────────────────────────────────────────────
+PROBLEMA: ZDT1
+───────────────────────────────────────────────────────────────────────
+
+N Variáveis    HV Médio            HV Desvio            Spacing Médio       Spacing Desvio      
+───────────────────────────────────────────────────────────────────────
+N=50                                                                                               
+N=100                                                                                              
+N=200                                                                                              
+
+───────────────────────────────────────────────────────────────────────
+PROBLEMA: ZDT3
+───────────────────────────────────────────────────────────────────────
+
+N Variáveis    HV Médio            HV Desvio            Spacing Médio       Spacing Desvio      
+───────────────────────────────────────────────────────────────────────
+N=50                                                                                               
+N=100                                                                                              
+N=200                                                                                              
+
+═══════════════════════════════════════════════════════════════════════
+ARQUIVOS GERADOS
+═══════════════════════════════════════════════════════════════════════
+
+total 32K
+-rw-rw-r-- 1 amon amon 4,3K out 26 13:33 COMPARISON_REPORT.txt
+-rw-rw-r-- 1 amon amon  595 out 26 13:31 ZDT1_N100_results.txt
+-rw-rw-r-- 1 amon amon  580 out 26 13:32 ZDT1_N200_results.txt
+-rw-rw-r-- 1 amon amon  602 out 26 13:30 ZDT1_N50_results.txt
+-rw-rw-r-- 1 amon amon  677 out 26 13:33 ZDT3_N100_results.txt
+-rw-rw-r-- 1 amon amon  660 out 26 13:33 ZDT3_N200_results.txt
+-rw-rw-r-- 1 amon amon  691 out 26 13:32 ZDT3_N50_results.txt
+
+═══════════════════════════════════════════════════════════════════════
+INTERPRETAÇÃO DOS RESULTADOS
+═══════════════════════════════════════════════════════════════════════
+
+Hypervolume (HV):
+  • Quanto MAIOR, melhor a aproximação da fronteira de Pareto
+  • Valores esperados: ~0.95-0.97 para ZDT1, ~1.35-1.40 para ZDT3
+  • Degradação com aumento de N indica maior dificuldade do problema
+
+Spacing:
+  • Quanto MENOR, melhor a uniformidade de distribuição
+  • Valores esperados: ~0.01-0.02 para boa distribuição
+  • Aumento com N indica dificuldade de manter diversidade
+
+Análise esperada:
+  1. N=50 → N=100: Degradação moderada (problema mais difícil)
+  2. N=100 → N=200: Degradação mais acentuada (maldição dimensionalidade)
+  3. ZDT3 mais sensível que ZDT1 (descontinuidade adiciona complexidade)
+
+═══════════════════════════════════════════════════════════════════════
+PRÓXIMOS PASSOS
+═══════════════════════════════════════════════════════════════════════
+
+1. Revisar os arquivos individuais em: results_nvar_comparison/
+2. Analisar tendências de degradação com aumento de N
+3. Comparar ZDT1 vs ZDT3 quanto à sensibilidade dimensional
+4. Considerar aumentar gerações/população para N=200 se HV < 0.80
+
+═══════════════════════════════════════════════════════════════════════
+
+Fim do relatório

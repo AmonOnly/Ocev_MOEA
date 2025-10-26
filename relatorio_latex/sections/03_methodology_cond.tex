@@ -1,0 +1,48 @@
+\section{Metodologia}
+
+\subsection{Algoritmo: NSGA-II}
+O Non-dominated Sorting Genetic Algorithm II (NSGA-II) é um MOEA amplamente utilizado que combina:
+\begin{itemize}
+  \item \textbf{Fast non-dominated sorting}: Classificação eficiente em fronteiras de dominância (O($MN^2$), M objetivos, N indivíduos).
+  \item \textbf{Crowding distance}: Preservação de diversidade priorizando soluções em regiões menos populadas.
+  \item \textbf{Elitismo}: Manutenção das melhores soluções entre gerações via estratégia ($\mu + \lambda$).
+\end{itemize}
+
+O NSGA-II foi escolhido por ser considerado estado-da-arte para problemas bi-objetivo e ter implementações bem validadas.
+
+\subsection{Problemas Benchmark}
+Utilizamos dois problemas da família ZDT (Zitzler-Deb-Thiele):
+
+\textbf{ZDT1}: Problema com frente de Pareto convexa e contínua. Formulação:
+\begin{align*}
+f_1(x) &= x_1 \\
+g(x) &= 1 + \frac{9}{n-1} \sum_{i=2}^{n} x_i \\
+f_2(x) &= g(x) \left(1 - \sqrt{\frac{f_1(x)}{g(x)}}\right)
+\end{align*}
+
+\textbf{ZDT3}: Problema com frente descontínua (5 regiões separadas). Formulação:
+\begin{align*}
+f_1(x) &= x_1 \\
+g(x) &= 1 + \frac{9}{n-1} \sum_{i=2}^{n} x_i \\
+f_2(x) &= g(x) \left(1 - \sqrt{\frac{f_1(x)}{g(x)}} - \frac{f_1(x)}{g(x)}\sin(10\pi f_1(x))\right)
+\end{align*}
+
+Ambos têm domínio $x_i \in [0,1]$ e testam diferentes aspectos do algoritmo: ZDT1 avalia convergência em frente simples; ZDT3 desafia a manutenção de diversidade em regiões disjuntas.
+
+\subsection{Métricas de Avaliação}
+\textbf{Hypervolume (HV)}: Volume do espaço de objetivos dominado pela aproximação da frente de Pareto. Valores maiores indicam melhor qualidade (convergência + diversidade). Ponto de referência: (1.1, 1.1) para ambos os problemas.
+
+\textbf{Spacing (S)}: Mede uniformidade da distribuição. Valores menores indicam distribuição mais uniforme. Calculado como:
+$$
+S = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (d_i - \bar{d})^2}
+$$
+onde $d_i$ é a distância ao vizinho mais próximo e $\bar{d}$ é a média das distâncias.
+
+\subsection{Protocolo Experimental}
+Estratégia de análise comparativa:
+\begin{itemize}
+  \item \textbf{10 execuções independentes} por configuração (N, problema) para capturar variabilidade estocástica.
+  \item População fixa (100 indivíduos) e gerações fixas (250) para isolar o efeito de N.
+  \item Cálculo de médias e desvios-padrão ($\pm 1\sigma$) para HV e Spacing.
+  \item Degradação percentual calculada em relação ao baseline N=50.
+\end{itemize}

@@ -1,0 +1,32 @@
+% main_condensed.tex - Versão condensada do relatório (máx. 12 páginas)
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.3cm}
+\renewcommand{\baselinestretch}{1.0}
+\setlength{\parskip}{0.3em}
+\title{Relatório Resumido: Avaliação e Escalabilidade de NSGA-II em ZDT1/ZDT3}
+\author{Equipe OCEV}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+\input{sections/01_abstract_cond.tex}
+\end{abstract}
+
+\vspace{1em}
+\input{sections/02_intro_cond.tex}
+\input{sections/03_methodology_cond.tex}
+\input{sections/04_setup_cond.tex}
+\input{sections/05_results_cond.tex}
+\input{sections/06_conclusion_cond.tex}
+
+\end{document}
